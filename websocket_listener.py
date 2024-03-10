@@ -11,9 +11,11 @@ async def websocket_client():
             "luminosity": "208",
             "humidityGround": "364",
         }
-        await websocket.send(json.dumps(tmp))
-        response = await websocket.recv()
-        print(response)
+
+        while True:
+            # Espera por uma mensagem do servidor
+            message = await websocket.recv()
+            print(f"Mensagem recebida do servidor: {message}")
 
 
-asyncio.get_event_loop().run_until_complete(websocket_client())
+asyncio.run(websocket_client())

@@ -3,10 +3,9 @@ from device import Device
 
 
 class Plant:
-    def __init__(self, id: int, name: str, device_id: int) -> None:
+    def __init__(self, id: int, name: str = None, device_id: int = None) -> None:
         self.id = id
-        self.name = name
-        self.device = Device(device_id)
+
         self.conn = duckdb.connect("plants")
         self.conn.execute(
             """
@@ -29,3 +28,14 @@ class Plant:
 
     async def get_device_id(self):
         return self.device.id
+
+    async def get_plant_info(self):
+        query_results = self.conn.execute(
+            f"""
+        SELECT name, device_id FROM plants WHERE id = {self.id}
+            """
+        ).fetchall()
+
+        self.name = None
+        self.device_id = None
+        print(query_results[0])

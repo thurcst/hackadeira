@@ -14,8 +14,9 @@ class TemperatureSensor:
              CREATE TABLE IF NOT EXISTS temperature_sensor (
               temperature_sensor_id INTEGER PRIMARY KEY,
               time TIMESTAMP,
-              temperature_value FLOAT
-          );
+              temperature_value FLOAT,
+              device_id INTEGER
+            ); 
           """
         )
 
